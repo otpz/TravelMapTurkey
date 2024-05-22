@@ -1,8 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using TravelMapTurkey.Entity.Entities
+@model List<City>
+@{
+    ViewData["Title"] = "Profil";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div id="welcome_text">Ziyaret ettiğiniz illeri aşağıdan işaretleyebilirsiniz</div>
+
+<div id="map_container">
+
 </div>
+
+<button id="download_button" onclick="downloadMap()">Haritayı İndir</button>
+
+<a id="github_logo" href="https://github.com/ozanyerli" target="_blank" rel="noopener noreferrer"><img src="images/GitHub-Mark-32px.png" alt="Github page link"></a>
+
+<div id="city_count_text">Seçilen il sayısı:&nbsp;<span id="city_count">0</span>/81</div>
+
+
+

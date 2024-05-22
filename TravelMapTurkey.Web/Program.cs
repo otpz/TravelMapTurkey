@@ -1,11 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using TravelMapTurkey.Data.Context;
 using TravelMapTurkey.Data.Extension;
+using TravelMapTurkey.Service.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.LoadDataLayerExtension(builder.Configuration);
-
+builder.Services.LoadServiceLayerExtension();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

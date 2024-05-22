@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TravelMapTurkey.Service.Services.Abstraction;
 using TravelMapTurkey.Web.Models;
 
 namespace TravelMapTurkey.Web.Controllers
@@ -7,15 +8,18 @@ namespace TravelMapTurkey.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICityService cityService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICityService cityService)
         {
             _logger = logger;
+            this.cityService = cityService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var cities = await cityService.GetAllCitiesWithCityReviewNonDeletedAsync();
+            return View(cities);
         }
 
         public IActionResult Privacy()

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TravelMapTurkey.Data\TravelMapTurkey.Data.csproj" />
+    <ProjectReference Include="..\TravelMapTurkey.Service\TravelMapTurkey.Service.csproj" />
   </ItemGroup>
 
 </Project>
