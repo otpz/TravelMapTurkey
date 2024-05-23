@@ -1,9 +1,10 @@
 ﻿using TravelMapTurkey.Entity.Entities;
+using TravelMapTurkey.Entity.ViewModel.Cities;
 
 namespace TravelMapTurkey.Service.Services.Abstraction
 {
     public interface ICityService
     {
-        Task<List<City>> GetAllCitiesWithCityReviewNonDeletedAsync();
+        Task<List<CityViewModel>> GetAllCitiesWithCityReviewNonDeletedAsync();
     }
 }

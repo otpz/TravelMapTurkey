@@ -1,7 +1,14 @@
-﻿@using TravelMapTurkey.Entity.Entities
-@model List<City>
+﻿@model List<CityViewModel>
+
 @{
     ViewData["Title"] = "Profil";
+}
+
+@foreach(var item in Model)
+{
+    <div>
+        <p>@item.CityName - @item.CityReview.Review |  @item.User.FirstName  @item.User.LastName</p>
+    </div>
 }
 
 
