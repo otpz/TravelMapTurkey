@@ -12,6 +12,7 @@ namespace TravelMapTurkey.Service.Extensions
             var assembly = Assembly.GetExecutingAssembly();
 
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddAutoMapper(assembly);
 

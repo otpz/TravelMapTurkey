@@ -11,7 +11,6 @@ namespace TravelMapTurkey.Data.Configurations
             builder.Property(x => x.Review)
                 .HasMaxLength(600);
 
-
             builder.HasData(
             new CityReview
             {
