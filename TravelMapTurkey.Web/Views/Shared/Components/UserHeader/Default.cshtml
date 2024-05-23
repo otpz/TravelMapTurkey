@@ -1,0 +1,11 @@
+﻿@model UserViewModel
+
+<div class="btn-group">
+    <div class="dropdown-toggle" style="cursor:pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @Model.FirstName @Model.LastName
+    </div>
+    <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" asp-controller="User" asp-action="Profile">Profil</a>
+        <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Çıkış Yap</a>
+    </div>
+</div>

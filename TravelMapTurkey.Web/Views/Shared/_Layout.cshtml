@@ -18,62 +18,34 @@
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-            <!-- Toggle button -->
-            
-
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Navbar brand -->
-                <a class="navbar-brand mt-2 mt-lg-0" href="#">
-                    <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="15"
-                         alt="MDB Logo" loading="lazy" />
-                </a>
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Team</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Projects</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <!-- Collapsible wrapper -->
-            <!-- Right elements -->
-            <div class="d-flex align-items-center">
-                <!-- Icon -->
-                <a class="text-reset me-3" href="#">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Right-aligned menu
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">Action</button>
-                        <button class="dropdown-item" type="button">Another action</button>
-                            <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Logout</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Right elements -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand font-weight-bold" asp-area="" asp-controller="Home" asp-action="Index">Seyahat Haritam</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+          </ul>
+          @if (User.Identity.IsAuthenticated == false)
+          {
+            <a class="btn btn-dark nav-link mr-3" asp-controller="Auth" asp-action="Register">Kaydol</a>
+            <a class="btn btn-dark nav-link" asp-controller="Auth" asp-action="Login">Giriş Yap</a>
+          }
+          else
+          {
+              @await Component.InvokeAsync("UserHeader")
+          }
         </div>
-        <!-- Container wrapper -->
+      </div>
     </nav>
-    <!-- Navbar -->
 
     <main role="main" class="container" style="min-height: 50vh;">
         <main role="main" class="pb-3">
+            
             @RenderBody()
         </main>
     </main>

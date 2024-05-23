@@ -11,7 +11,7 @@ namespace TravelMapTurkey.Data.Repositories.Abstractions
 
         Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
 
-        Task<T> GetByGuidAsync(Guid id);
+        Task<T> GetByIdAsync(int id);
 
         Task<T> UpdateAsync(T entity);
 
