@@ -31,5 +31,13 @@ namespace TravelMapTurkey.Service.Services.Concrete
             var userViewModelMap = mapper.Map<UserViewModel>(getUserProfile);
             return userViewModelMap;
         }
+
+        public async Task<UserViewModel> GetUserByIdAsync(int userId)
+        {
+            var user = await unitOfWork.GetRepository<AppUser>().GetByIdAsync(userId);
+            var userViewModelMap = mapper.Map<UserViewModel>(user);
+            return userViewModelMap;
+        }
+
     }
 }

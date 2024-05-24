@@ -5,7 +5,7 @@ let cityCount = localStorage.getItem("selectedCities")
   : 0;
 document.getElementById("city_count").innerHTML = cityCount;
 
-d3.json("../js/tr-cities.json").then(function (data) {
+d3.json("/js/tr-cities.json").then(function (data) {
   let width = 1200;
   let height = 800;
   let projection = d3.geoEqualEarth();
