@@ -14,4 +14,9 @@
     <ProjectReference Include="..\TravelMapTurkey.Core\TravelMapTurkey.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModel\Images\" />
+    <Folder Include="ViewModel\CityReviews\" />
+  </ItemGroup>
+
 </Project>

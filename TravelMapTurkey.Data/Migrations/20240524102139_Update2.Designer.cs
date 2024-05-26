@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelMapTurkey.Data.Context;
 
@@ -11,9 +12,11 @@ using TravelMapTurkey.Data.Context;
 namespace TravelMapTurkey.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240524102139_Update2")]
+    partial class Update2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +179,7 @@ namespace TravelMapTurkey.Data.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             Biography = "Test biography",
-                            ConcurrencyStamp = "e23ef4bb-6676-405c-a1d7-eb4c20606e85",
+                            ConcurrencyStamp = "08170431-bcf6-4239-acbe-5298fef072c9",
                             Email = "test@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "User",
@@ -184,7 +187,7 @@ namespace TravelMapTurkey.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@GMAIL.COM",
                             NormalizedUserName = "TEST@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAocqHWzTqD6HmRYA/F0T5YK97SbZdKdyCjgO/5WboNmveQ4C6i0P0RGxt0SXOejFQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE+9KIYVCnFF3j/Aydtx1mYuURIzKsWpNMXlhwvxdJr81uonemiz/NGWOWloiFMlzQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "12345678901",
@@ -196,7 +199,7 @@ namespace TravelMapTurkey.Data.Migrations
                             Id = 2,
                             AccessFailedCount = 0,
                             Biography = "Admin biography",
-                            ConcurrencyStamp = "36529ceb-44f8-4df3-ad4a-bd39c18701f9",
+                            ConcurrencyStamp = "05a1fde7-31b7-4d69-afa6-e575b43f2e3c",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -204,7 +207,7 @@ namespace TravelMapTurkey.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMjBT4xog8EbJimT04E5s4Qqx55ZrkOxtL4McEytZ5cJqfNi9cgplNcZVIn3vIml1A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGrbnP2AeRiQ1Kau/eXzbEp9JdI8agwN6DVxl1ripkWccRdDRIc/xICfBNwaqbe74A==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "1234567890",
@@ -349,7 +352,7 @@ namespace TravelMapTurkey.Data.Migrations
                         {
                             Id = 1,
                             CityName = "Ankara",
-                            CreatedDate = new DateTime(2024, 5, 26, 16, 26, 8, 456, DateTimeKind.Local).AddTicks(9072),
+                            CreatedDate = new DateTime(2024, 5, 24, 13, 21, 39, 565, DateTimeKind.Local).AddTicks(8275),
                             IsDeleted = false,
                             Type = "Visit",
                             UserId = 1
@@ -358,7 +361,7 @@ namespace TravelMapTurkey.Data.Migrations
                         {
                             Id = 2,
                             CityName = "Antalya",
-                            CreatedDate = new DateTime(2024, 5, 26, 16, 26, 8, 456, DateTimeKind.Local).AddTicks(9086),
+                            CreatedDate = new DateTime(2024, 5, 24, 13, 21, 39, 565, DateTimeKind.Local).AddTicks(8293),
                             IsDeleted = false,
                             Type = "Visit",
                             UserId = 1
@@ -402,7 +405,7 @@ namespace TravelMapTurkey.Data.Migrations
                         {
                             Id = 1,
                             CityId = 1,
-                            CreatedDate = new DateTime(2024, 5, 26, 16, 26, 8, 457, DateTimeKind.Local).AddTicks(784),
+                            CreatedDate = new DateTime(2024, 5, 24, 13, 21, 39, 566, DateTimeKind.Local).AddTicks(246),
                             IsDeleted = false,
                             Review = "Kalabalık bir şehir"
                         },
@@ -410,7 +413,7 @@ namespace TravelMapTurkey.Data.Migrations
                         {
                             Id = 2,
                             CityId = 2,
-                            CreatedDate = new DateTime(2024, 5, 26, 16, 26, 8, 457, DateTimeKind.Local).AddTicks(790),
+                            CreatedDate = new DateTime(2024, 5, 24, 13, 21, 39, 566, DateTimeKind.Local).AddTicks(251),
                             IsDeleted = false,
                             Review = "Güzel bir şehir"
                         });
@@ -458,7 +461,7 @@ namespace TravelMapTurkey.Data.Migrations
                         {
                             Id = 1,
                             CityReviewId = 1,
-                            CreatedDate = new DateTime(2024, 5, 26, 16, 26, 8, 457, DateTimeKind.Local).AddTicks(2326),
+                            CreatedDate = new DateTime(2024, 5, 24, 13, 21, 39, 566, DateTimeKind.Local).AddTicks(1914),
                             FileName = "post_images/image1",
                             FileType = "jpg",
                             IsDeleted = false
@@ -467,7 +470,7 @@ namespace TravelMapTurkey.Data.Migrations
                         {
                             Id = 2,
                             CityReviewId = 2,
-                            CreatedDate = new DateTime(2024, 5, 26, 16, 26, 8, 457, DateTimeKind.Local).AddTicks(2328),
+                            CreatedDate = new DateTime(2024, 5, 24, 13, 21, 39, 566, DateTimeKind.Local).AddTicks(1917),
                             FileName = "post_images/image2",
                             FileType = "jpg",
                             IsDeleted = false

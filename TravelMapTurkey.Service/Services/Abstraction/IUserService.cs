@@ -5,6 +5,7 @@ namespace TravelMapTurkey.Service.Services.Abstraction
     public interface IUserService
     {
         Task<UserViewModel> GetLoggedInUserProfileAsync();
-        Task<UserViewModel> GetUserByIdAsync(int userId);
+        Task<UserProfileViewModel> GetUserByIdAsync(int userId);
+        Task<UserProfileViewModel> GetUserProfileByIdAsync(int userId);
     }
 }

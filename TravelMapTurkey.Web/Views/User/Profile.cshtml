@@ -1,10 +1,19 @@
-﻿@model UserViewModel
+﻿@using Newtonsoft.Json
+@model UserProfileViewModel
 
 @{
     ViewData["Title"] = $"{Model.FirstName} {Model.LastName}";
+    ViewBag.UserData = Model;
 }
+<div>
+    <h1>User Profile View Model</h1>
+    @Model.FirstName @Model.LastName <br/>
+    @foreach(var city in Model.Cities)
+    {
+        <div>@city.CityName - @city.Type - @city.CityReview.Review</div>
+    }
+</div>
 
-    
 <div id="welcome_text">Ziyaret ettiğiniz illeri aşağıdan işaretleyebilirsiniz</div>
 
 <div id="map_container">
@@ -14,6 +23,49 @@
 
 <div id="city_count_text">Seçilen il sayısı:&nbsp;<span id="city_count">0</span>/81</div>
 
+<!-- Modal Tetikleyici -->
+@if (Model.IsOwnProfile)
+{
+    <button type="button" class="btn btn-primary" id="openModalBtn" data-toggle="modal" data-target="#exampleModal" style="display: none;">Open modal</button>
+    @await Component.InvokeAsync("CityAdd")
+} else
+{
+    <button type="button" class="btn btn-primary" id="openModalBtn" data-toggle="modal" data-target="#exampleModal" style="display: none;">Open modal</button>
+    @await Component.InvokeAsync("CityReview")
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
+<script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script>
+
+<script>
+
+    const model = @Html.Raw(JsonConvert.SerializeObject(Model.Cities, Formatting.Indented, new JsonSerializerSettings()
+           {
+               ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+           }));
+
+    localStorage.clear()
+
+    var oldItems = JSON.parse(localStorage.getItem('itemStored')) || []
+
+    model.forEach((city) => {
+
+        const cityObj = {
+            cityName: city.CityName,
+            review: city.CityReview,
+            typeof: city.Type
+        }
+        oldItems.push(cityObj);
+    })
+
+    console.log(oldItems)
+
+    localStorage.setItem('itemStored', JSON.stringify(oldItems))
+
+</script>
 
 
 

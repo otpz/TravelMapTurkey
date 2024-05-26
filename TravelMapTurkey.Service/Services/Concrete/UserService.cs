@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TravelMapTurkey.Data.UnitOfWorks;
 using TravelMapTurkey.Entity.Entities;
@@ -32,10 +33,22 @@ namespace TravelMapTurkey.Service.Services.Concrete
             return userViewModelMap;
         }
 
-        public async Task<UserViewModel> GetUserByIdAsync(int userId)
+        public async Task<UserProfileViewModel> GetUserByIdAsync(int userId)
         {
             var user = await unitOfWork.GetRepository<AppUser>().GetByIdAsync(userId);
-            var userViewModelMap = mapper.Map<UserViewModel>(user);
+            var userViewModelMap = mapper.Map<UserProfileViewModel>(user);
+            return userViewModelMap;
+        }
+
+        public async Task<UserProfileViewModel> GetUserProfileByIdAsync(int userId)
+        {
+            var userById = await unitOfWork.GetRepository<AppUser>().GetByIdAsync(userId);
+            if (userById == null)
+                return null;
+
+            var user = await unitOfWork.GetRepository<AppUser>().GetAsync(x => x.Id == userById.Id, include: x=>x.Include(c=>c.Cities).ThenInclude(r=>r.CityReview).ThenInclude(i=>i.Image));
+
+            var userViewModelMap = mapper.Map<UserProfileViewModel>(user);
             return userViewModelMap;
         }
 
