@@ -1,10 +1,13 @@
 const SELECTED_COLOR = "#47c511";
 const HOVER_COLOR = "#bfbfbf";
 const MAP_COLOR = "#ffffff";
+const WISH_LIST_COLOR = "#fff47a";
+
 let cityCount = localStorage.getItem("cities")
   ? JSON.parse(localStorage.getItem("cities")).length
-  : 0;
-document.getElementById("city_count").innerHTML = cityCount;
+    : 0;
+
+if (document.getElementById("city_count")) document.getElementById("city_count").innerHTML = cityCount;
 
 d3.json("/js/tr-cities.json").then(function (data) {
     let width = 1200;
@@ -20,7 +23,6 @@ d3.json("/js/tr-cities.json").then(function (data) {
         .attr("height", height)
         .attr("style", "cursor: pointer");
 
-
     let g = svg
         .append("g")
         .selectAll("path")
@@ -30,40 +32,50 @@ d3.json("/js/tr-cities.json").then(function (data) {
         .attr("fill", function (d, i) {
             if (localStorage.getItem("cities")) {
                 const cityNames = JSON.parse(localStorage.getItem("cities")).map(obj => obj.cityName)
-                if (cityNames.includes(d.properties.name)){
+                if (cityNames.includes(d.properties.name)) {
                     d.noFill = true;
+                    const res = JSON.parse(localStorage.getItem("cities")).find(obj => obj.cityName == d.properties.name)
+                    if (res.type == "WishList") {
+                        return WISH_LIST_COLOR;
+                    }
                     return SELECTED_COLOR;
                 } else return MAP_COLOR;
             } else return MAP_COLOR;
         })
         .attr("stroke", "#000")
         .on("mouseover", function (d, i) {
-            if (d.noFill) d3.select(this).attr("fill", SELECTED_COLOR);
-            else d3.select(this).attr("fill", HOVER_COLOR);
+            if (!d.noFill) d3.select(this).attr("fill", HOVER_COLOR);
         })
         .on("mouseout", function (d, i) {
-            if (!d.noFill) d3.select(this).attr("fill", MAP_COLOR)
-            else { d3.select(this).attr("fill", SELECTED_COLOR) };
+            if (!d.noFill) d3.select(this).attr("fill", MAP_COLOR);
         })
-        .on("click", function (d, i) {
-            //d.properties
-            console.log("d", d);
 
+        .on("click", function (d, i) {
+            const isOwnProfile = JSON.parse(localStorage.getItem('ownProfile'))
             // Þehir bilgilerini modal ile göstermek için
             document.getElementById('city-name').value = d.properties.name;
             document.getElementById('city-code').innerHTML = d.properties.name + " - " + d.properties.number;
             document.getElementById('city-review').value = '';
-            document.getElementById('city-type').value = '';
+            document.querySelectorAll(".form-check-input").forEach(tag => {
+                tag.checked = false;
+            });
 
             JSON.parse(localStorage.getItem("cities")).forEach((obj) => {
                 if (obj.cityName == d.properties.name) {
                     document.getElementById('city-review').value = obj.review.Review
-                    document.getElementById('city-type').value = obj.type
+                    // Modal'ý açmak için
+                    document.getElementById('openModalBtn').click();
+                    document.querySelectorAll(".form-check-input").forEach(tag => {
+                        if (tag.value == obj.type) {
+                            tag.checked = true
+                        }
+                    });
                 }
             })
 
-            // Modal'ý açmak için
-            document.getElementById('openModalBtn').click();
+            if (isOwnProfile) {
+                document.getElementById('openModalBtn').click();
+            } 
         });
 
     g = svg.append("g");

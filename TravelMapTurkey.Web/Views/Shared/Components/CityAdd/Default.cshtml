@@ -20,9 +20,12 @@
                         <input asp-for="CityName" type="text" class="form-control" id="city-name" name="CityName" readonly required>
                         <span asp-validation-for="CityName"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Type" class="col-form-label">Tip:</label>
-                        <input asp-for="Type" type="text" class="form-control" id="city-type" name="Type" required>
+                    <div class="form-check">
+                        <input asp-for="Type" type="radio" name="Type" id="visit" value="Visit" class="form-check-input" required>
+                        <label asp-for="Type" for="visit" class="form-check-label">Ziyaret Ettim</label>
+                        <br />
+                        <input asp-for="Type" type="radio" id="wish" name="Type" value="WishList" class="form-check-input" required>
+                        <label asp-for="Type" for="wish" class="form-check-label">İstek Listesine Ekle</label>
                         <span asp-validation-for="Type"></span>
                     </div>
                     <div class="form-group">
