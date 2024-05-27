@@ -48,22 +48,18 @@
            }));
 
     localStorage.clear()
-
-    var oldItems = JSON.parse(localStorage.getItem('itemStored')) || []
-
+    var storage = JSON.parse(localStorage.getItem('cities')) || []
     model.forEach((city) => {
 
         const cityObj = {
             cityName: city.CityName,
             review: city.CityReview,
-            typeof: city.Type
+            type: city.Type
         }
-        oldItems.push(cityObj);
+        storage.push(cityObj);
     })
 
-    console.log(oldItems)
-
-    localStorage.setItem('itemStored', JSON.stringify(oldItems))
+    localStorage.setItem('cities', JSON.stringify(storage))
 
 </script>
 
