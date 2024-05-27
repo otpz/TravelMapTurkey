@@ -6,6 +6,7 @@ using TravelMapTurkey.Service.Services.Abstraction;
 
 namespace TravelMapTurkey.Web.Controllers
 {
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IAuthService authService;

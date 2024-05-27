@@ -1,4 +1,5 @@
-const HOVER_COLOR = "#47c511";
+const SELECTED_COLOR = "#47c511";
+const HOVER_COLOR = "#bfbfbf";
 const MAP_COLOR = "#ffffff";
 let cityCount = localStorage.getItem("cities")
   ? JSON.parse(localStorage.getItem("cities")).length
@@ -16,7 +17,9 @@ d3.json("/js/tr-cities.json").then(function (data) {
         .select("#map_container")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("style", "cursor: pointer");
+
 
     let g = svg
         .append("g")
@@ -29,22 +32,26 @@ d3.json("/js/tr-cities.json").then(function (data) {
                 const cityNames = JSON.parse(localStorage.getItem("cities")).map(obj => obj.cityName)
                 if (cityNames.includes(d.properties.name)){
                     d.noFill = true;
-                    return HOVER_COLOR;
+                    return SELECTED_COLOR;
                 } else return MAP_COLOR;
             } else return MAP_COLOR;
         })
         .attr("stroke", "#000")
         .on("mouseover", function (d, i) {
-            d3.select(this).attr("fill", HOVER_COLOR);
+            if (d.noFill) d3.select(this).attr("fill", SELECTED_COLOR);
+            else d3.select(this).attr("fill", HOVER_COLOR);
         })
         .on("mouseout", function (d, i) {
-            if (!d.noFill) d3.select(this).attr("fill", MAP_COLOR);
+            if (!d.noFill) d3.select(this).attr("fill", MAP_COLOR)
+            else { d3.select(this).attr("fill", SELECTED_COLOR) };
         })
         .on("click", function (d, i) {
+            //d.properties
             console.log("d", d);
 
             // Þehir bilgilerini modal ile göstermek için
             document.getElementById('city-name').value = d.properties.name;
+            document.getElementById('city-code').innerHTML = d.properties.name + " - " + d.properties.number;
             document.getElementById('city-review').value = '';
             document.getElementById('city-type').value = '';
 
@@ -77,7 +84,7 @@ d3.json("/js/tr-cities.json").then(function (data) {
         .attr("text-anchor", "middle")
         .attr("font-size", "10pt")
         .attr("style", "color: black;")
-        .attr("style", "pointer-events: none;");
+        .attr("style", "pointer-events: none;")
 });
 
 

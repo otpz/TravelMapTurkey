@@ -18,10 +18,12 @@
 
 <div id="map_container">
 </div>
+@if (Model.IsOwnProfile)
+{
+    <button id="download_button" onclick="downloadMap()">Haritayı İndir</button>
+}
 
-<button id="download_button" onclick="downloadMap()">Haritayı İndir</button>
-
-<div id="city_count_text">Seçilen il sayısı:&nbsp;<span id="city_count">0</span>/81</div>
+<div id="city_count_text">Seçili il sayısı:&nbsp;<span id="city_count">0</span>/81</div>
 
 <!-- Modal Tetikleyici -->
 @if (Model.IsOwnProfile)

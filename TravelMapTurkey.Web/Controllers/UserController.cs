@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore;
 using System.Security.Claims;
 using TravelMapTurkey.Entity.ViewModel.Cities;
@@ -7,6 +8,7 @@ using TravelMapTurkey.Service.Services.Abstraction;
 
 namespace TravelMapTurkey.Web.Controllers
 {
+    //[Authorize]
     public class UserController : Controller
     {
         private readonly IUserService userService;
@@ -32,8 +34,12 @@ namespace TravelMapTurkey.Web.Controllers
         [Route("User/Profile/{userId?}")]
         public async Task<IActionResult> Profile(int userId)
         {
+            int loggedInUserId = 0;
 
-            int loggedInUserId = _user.GetLoggedInUserId();
+            if (_user.Identity.IsAuthenticated)
+            {
+                loggedInUserId = _user.GetLoggedInUserId();
+            }
 
             var user = await userService.GetUserProfileByIdAsync(userId);
 
