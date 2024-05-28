@@ -7,5 +7,6 @@ namespace TravelMapTurkey.Service.Services.Abstraction
         Task<UserViewModel> GetLoggedInUserProfileAsync();
         Task<UserProfileViewModel> GetUserByIdAsync(int userId);
         Task<UserProfileViewModel> GetUserProfileByIdAsync(int userId);
+        Task UpdateUserSettingsAsync(UserUpdateViewModel userUpdateViewModel);
     }
 }

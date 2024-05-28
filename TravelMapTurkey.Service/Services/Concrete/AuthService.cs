@@ -52,14 +52,18 @@ namespace TravelMapTurkey.Service.Services.Concrete
         public async Task<string> LoginUserAsync(UserLoginViewModel userLoginViewModel)
         {
             var user = await userManager.FindByEmailAsync(userLoginViewModel.Email);
+
             if (user != null)
             {
                 var result = await signInManager.PasswordSignInAsync(user, userLoginViewModel.Password, true, false);
                 if (result.Succeeded)
+                {
                     return "ok";
-
+                }
                 else
+                {
                     return "notok";
+                }
             }
             else
             {

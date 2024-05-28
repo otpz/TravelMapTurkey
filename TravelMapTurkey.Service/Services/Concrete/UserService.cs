@@ -52,5 +52,19 @@ namespace TravelMapTurkey.Service.Services.Concrete
             return userViewModelMap;
         }
 
+        public async Task UpdateUserSettingsAsync(UserUpdateViewModel userUpdateViewModel)
+        {
+            var user = await unitOfWork.GetRepository<AppUser>().GetAsync(x => x.Id == userUpdateViewModel.Id, null);
+
+            user.Email = userUpdateViewModel.Email;
+            user.FirstName = userUpdateViewModel.FirstName;
+            user.LastName = userUpdateViewModel.LastName;
+            user.Biography = userUpdateViewModel.Biography;
+
+            await unitOfWork.GetRepository<AppUser>().UpdateAsync(user);
+            await unitOfWork.SaveAsync();
+        }
+
+
     }
 }

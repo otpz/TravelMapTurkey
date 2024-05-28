@@ -45,15 +45,12 @@ namespace TravelMapTurkey.Service.Services.Concrete
                 City city = new(cityName: cityAddViewModel.CityName, userId: userIdentification, cityAddViewModel.Type);
                 await unitOfWork.GetRepository<City>().AddAsync(city);
                 await unitOfWork.SaveAsync();
-
                 CityReview cityReview = new(review: cityAddViewModel.Review, cityId: city.Id);
                 await unitOfWork.GetRepository<CityReview>().AddAsync(cityReview);
                 await unitOfWork.SaveAsync();
             } else
             {
                 var existCityReview = await unitOfWork.GetRepository<CityReview>().GetAsync(x => x.Id == existCity.CityReview.Id, null);
-                
-                
                 existCity.UserId = cityAddViewModel.UserId;
                 existCity.CityName = cityAddViewModel.CityName;
                 existCity.CityReview.Review = cityAddViewModel.Review;
@@ -61,9 +58,7 @@ namespace TravelMapTurkey.Service.Services.Concrete
                 var cityMap = mapper.Map<City>(existCity); 
                 await unitOfWork.GetRepository<City>().UpdateAsync(cityMap);
                 await unitOfWork.SaveAsync();
-
             }
-            
             return userIdentification;
         }
 

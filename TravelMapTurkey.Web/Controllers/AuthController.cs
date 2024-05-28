@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.ConstrainedExecution;
 using TravelMapTurkey.Entity.ViewModel.Users;
+using TravelMapTurkey.Service.Extensions;
 using TravelMapTurkey.Service.Services.Abstraction;
 
 namespace TravelMapTurkey.Web.Controllers
@@ -47,15 +49,15 @@ namespace TravelMapTurkey.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
         {
+            
             if (ModelState.IsValid)
             {
-                string result = await authService.LoginUserAsync(userLoginViewModel);
-
-                if (result == "notfound")
+                string results = await authService.LoginUserAsync(userLoginViewModel);
+                if (results == "notfound")
                 {
                     ModelState.AddModelError("", "Kullanıcı bulunamadı");
                     return View();
-                } else if (result == "ok")
+                } else if (results == "ok")
                 {
                     return RedirectToAction("Index", "Home");
                 } else
