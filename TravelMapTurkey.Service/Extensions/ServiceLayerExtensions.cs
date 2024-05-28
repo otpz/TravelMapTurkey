@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using TravelMapTurkey.Service.Helpers.Images;
 using TravelMapTurkey.Service.Services.Abstraction;
 using TravelMapTurkey.Service.Services.Concrete;
 
@@ -14,6 +15,7 @@ namespace TravelMapTurkey.Service.Extensions
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IImageHelper, ImageHelper>();
 
             services.AddAutoMapper(assembly);
 

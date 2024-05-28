@@ -11,6 +11,7 @@ namespace TravelMapTurkey.Entity.ViewModel.Users
         public string Email { get; set; }
         public string Biography { get; set; }
         public bool IsOwnProfile { get; set; }
+        public Image Image { get; set; }
         public IList<City> Cities { get; set; }
     }
 }

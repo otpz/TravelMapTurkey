@@ -59,10 +59,22 @@ d3.json("/js/tr-cities.json").then(function (data) {
             document.querySelectorAll(".form-check-input").forEach(tag => {
                 tag.checked = false;
             });
+            document.getElementById('city-image').src = "";
+            document.getElementById('city-image').style = "width:0; height:0;"
+
 
             JSON.parse(localStorage.getItem("cities")).forEach((obj) => {
                 if (obj.cityName == d.properties.name) {
+
                     document.getElementById('city-review').value = obj.review.Review
+                    //console.log(obj.review.Image.FileName)
+                    document.getElementById('city-image').src = obj.review.Image != null ? `/images/${obj.review.Image.FileName}` : ""
+                    
+                    document.getElementById('city-image').style = "max-width:10em; height:auto;"
+                    if (!isOwnProfile) {
+                        document.getElementById('city-image').style = "max-width:29em; height:auto;"
+                        document.getElementById("city-type").value = obj.type == "Visit" ? "Ziyaret Ettim" : "Ýstek Listemde";
+                    }
                     // Modal'ý açmak için
                     document.getElementById('openModalBtn').click();
                     document.querySelectorAll(".form-check-input").forEach(tag => {
@@ -70,6 +82,7 @@ d3.json("/js/tr-cities.json").then(function (data) {
                             tag.checked = true
                         }
                     });
+                    
                 }
             })
 

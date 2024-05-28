@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.0" />
   </ItemGroup>
 
@@ -15,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\Images\" />
     <Folder Include="ViewModel\CityReviews\" />
+    <Folder Include="ViewModel\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,6 @@ namespace TravelMapTurkey.Service.Services.Abstraction
     public interface ICityService
     {
         Task<List<CityViewModel>> GetAllCitiesWithCityReviewNonDeletedAsync();
-        Task<int> CreateCityWithReviewAndImageAsync(CityAddViewModel cityAddViewModel);
+        Task<int> CreateOrUpdateCityWithReviewAndImageAsync(CityAddViewModel cityAddViewModel);
     }
 }

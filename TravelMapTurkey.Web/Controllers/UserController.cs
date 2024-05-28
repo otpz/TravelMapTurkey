@@ -64,7 +64,7 @@ namespace TravelMapTurkey.Web.Controllers
                 ModelState.AddModelError("", "Bilgileri tamamlayınız");
             }
 
-            int userId = await cityService.CreateCityWithReviewAndImageAsync(cityAddViewModel);
+            int userId = await cityService.CreateOrUpdateCityWithReviewAndImageAsync(cityAddViewModel);
             var user = await userService.GetUserProfileByIdAsync(userId);
 
             if (user == null)

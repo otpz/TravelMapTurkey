@@ -1,7 +1,5 @@
 ﻿@model CityAddViewModel
 
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -13,7 +11,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-controller="User" asp-action="Profile" method="post">
+                <form asp-controller="User" asp-action="Profile" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="form-group">
                         <label asp-for="CityName" class="col-form-label">Şehir Adı: </label>
@@ -33,10 +31,18 @@
                         <textarea asp-for="Review" class="form-control" id="city-review" name="Review" required></textarea>
                         <span asp-validation-for="Review"></span>
                     </div>
+                    <div class="form-group d-flex justify-content-between align-items-center">
+                        <div class="form-group mr-2">
+                            <label asp-for="Photo" class="col-form-label">Resim Seçiniz</label>
+                            <input asp-for="Photo" name="Photo" type="file" accept="image/*" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+                        </div>
+                        <img id="city-image" src="" alt="" class="" style="max-width:10em; height:auto;" />
+                    </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Kaydet</button>
                     </div>
                 </form>
+                
             </div>
         </div>
     </div>
