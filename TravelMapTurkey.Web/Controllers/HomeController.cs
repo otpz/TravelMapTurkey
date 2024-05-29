@@ -9,18 +9,18 @@ namespace TravelMapTurkey.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICityService cityService;
+        private readonly IUserService userService;
 
-        public HomeController(ILogger<HomeController> logger, ICityService cityService)
+        public HomeController(ILogger<HomeController> logger, IUserService userService)
         {
             _logger = logger;
-            this.cityService = cityService;
+            this.userService = userService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var cities = await cityService.GetAllCitiesWithCityReviewNonDeletedAsync();
-            return View(cities);
+            var users = await userService.GetAllUserWithCityAndImageAsync();
+            return View(users);
         }
  
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

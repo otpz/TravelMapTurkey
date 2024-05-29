@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TravelMapTurkey.Data.UnitOfWorks;
 using TravelMapTurkey.Entity.Entities;
@@ -26,14 +27,6 @@ namespace TravelMapTurkey.Service.Services.Concrete
             this.imageHelper = imageHelper;
             _user = httpContextAccessor.HttpContext.User;
         }
-        public async Task<List<CityViewModel>> GetAllCitiesWithCityReviewNonDeletedAsync()
-        {
-            var cities = await unitOfWork.GetRepository<City>().GetAllAsync(x=>!x.IsDeleted, r=>r.CityReview);
-            var map = mapper.Map<List<CityViewModel>>(cities);
-            return map;
-        }
-
-        
 
         public async Task<int> CreateOrUpdateCityWithReviewAndImageAsync(CityAddViewModel cityAddViewModel)
         {
@@ -93,7 +86,7 @@ namespace TravelMapTurkey.Service.Services.Concrete
 
         public async Task<List<City>> GetAllCitiesByUserIdAsync(int userId)
         {
-            var cities = await unitOfWork.GetRepository<City>().GetAllAsync(x => x.UserId == userId, c => c.CityReview, i=>i.CityReview.Image);
+            var cities = await unitOfWork.GetRepository<City>().GetAllAsync(x => x.UserId == userId, include: x => x.Include(c => c.CityReview).ThenInclude(r => r.Image), null);
             return cities;
         }
     }

@@ -65,6 +65,11 @@ namespace TravelMapTurkey.Service.Services.Concrete
             await unitOfWork.SaveAsync();
         }
 
-
+        public async Task<List<UserListViewModel>> GetAllUserWithCityAndImageAsync()
+        {
+            var users = await unitOfWork.GetRepository<AppUser>().GetAllAsync(null, include: x=>x.Include(c=>c.Cities).ThenInclude(r=>r.CityReview).ThenInclude(i=>i.Image), orderBy: r=>r.OrderByDescending(x => x.Cities.Count()));
+            var userListMap = mapper.Map<List<UserListViewModel>>(users);
+            return userListMap;
+        }
     }
 }

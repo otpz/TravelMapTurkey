@@ -13,6 +13,7 @@ namespace TravelMapTurkey.Service.AutoMapper.Users
             CreateMap<AppUser, UserViewModel>().ReverseMap();
             CreateMap<AppUser, UserProfileViewModel>().ReverseMap();
             CreateMap<UserUpdateViewModel, UserProfileViewModel>().ReverseMap();
+            CreateMap<AppUser, UserListViewModel>().ReverseMap();
         }
     }
 }

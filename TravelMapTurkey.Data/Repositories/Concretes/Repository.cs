@@ -24,23 +24,15 @@ namespace TravelMapTurkey.Data.Repositories.Concretes
             await Table.AddAsync(entity);
         }
 
-        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
         {
-            IQueryable<T> query = Table;
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+            IQueryable<T> queryable = Table;
+            if (include is not null) queryable = include(queryable);
+            if (predicate is not null) queryable = queryable.Where(predicate);
+            if (orderBy is not null)
+                return await orderBy(queryable).ToListAsync();
 
-            if (includeProperties.Any())
-            {
-                foreach (var item in includeProperties)
-                {
-                    query = query.Include(item);
-                }
-            }
-
-            return await query.ToListAsync();   
+            return await queryable.ToListAsync();
         }
 
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
@@ -64,22 +56,6 @@ namespace TravelMapTurkey.Data.Repositories.Concretes
             await Task.Run(() => Table.Remove(entity));
         }
 
-        
-
-        //public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, Expression<Func<T, object>> selectProperty, params Expression<Func<T, object>>[] includeProperties)
-        //{
-        //    IQueryable<T> query = Table;
-        //    query = query.Where(predicate);
-        //    if (includeProperties.Any())
-        //    {
-        //        foreach (var item in includeProperties)
-        //        {
-        //            query = query.Include(item);
-        //        }
-        //    }
-        //    return await query.SingleAsync();
-        //}
-
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
         {
             IQueryable<T> queryable = Table;
@@ -87,7 +63,6 @@ namespace TravelMapTurkey.Data.Repositories.Concretes
             //queryable.Where(predicate);
             return await queryable.SingleAsync(predicate);
         }
-
 
         public async Task<AppUser> GetAppUserWithCityReviewsAsync(Expression<Func<AppUser, bool>> predicate)
         {
