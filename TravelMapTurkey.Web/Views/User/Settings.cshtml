@@ -10,32 +10,32 @@
                     <div class="d-flex flex-column justify-content-center card-body px-4 py-5 px-md-5">
                         <a class="align-self-start text-start" asp-controller="User" asp-action="Profile" asp-route-userId="@Model.Id">Profile Dön</a>
                         <h2 class="text-center text-black mb-3">Profili Güncelle</h2>
-                        <form asp-controller="User" asp-action="Update" method="post">
+                        <form asp-controller="User" asp-action="Settings" method="post">
                             <div asp-validation-summary="All"></div>
                             <input asp-for="Id" name="Id" type="hidden" id="form3Example3" class="form-control" />
                             <!-- Email input -->
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <input asp-for="FirstName" name="FirstName" type="text" id="form3Example3" class="form-control" />
                                 <label asp-for="FirstName" class="form-label" for="form3Example3">İsim</label>
-                                <span asp-validation-for="FirstName"></span>
+                                <span class="text-danger" asp-validation-for="FirstName"></span>
                             </div>
 
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <input asp-for="LastName" name="LastName" type="text" id="form3Example3" class="form-control" />
                                 <label asp-for="LastName" class="form-label" for="form3Example3">Soyisim</label>
-                                <span asp-validation-for="LastName"></span>
+                                <span class="text-danger" asp-validation-for="LastName"></span>
                             </div>
 
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <input asp-for="Email" name="Email" type="email" id="form3Example3" class="form-control" />
                                 <label asp-for="Email" class="form-label" for="form3Example3">Email</label>
-                                <span asp-validation-for="Email"></span>
+                                <span class="text-danger" asp-validation-for="Email"></span>
                             </div>
 
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <textarea asp-for="Biography" name="Biography" id="form3Example3" class="form-control"></textarea>
                                 <label asp-for="Biography" class="form-label" for="form3Example3">Biography</label>
-                                <span asp-validation-for="Biography"></span>
+                                <span class="text-danger" asp-validation-for="Biography"></span>
                             </div>
                             <!-- Submit button -->
                             <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4 col-lg-12 align-self-center">

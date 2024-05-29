@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.ConstrainedExecution;
+using TravelMapTurkey.Data.Configurations;
+using TravelMapTurkey.Entity.Entities;
 using TravelMapTurkey.Entity.ViewModel.Users;
-using TravelMapTurkey.Service.Extensions;
 using TravelMapTurkey.Service.Services.Abstraction;
 
 namespace TravelMapTurkey.Web.Controllers
@@ -12,10 +14,16 @@ namespace TravelMapTurkey.Web.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
+        private readonly IValidator<AppUser> validator;
+        private readonly IMapper mapper;
+        private readonly IValidator<UserLoginViewModel> validator2;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IValidator<AppUser> validator, IMapper mapper, IValidator<UserLoginViewModel> validator2)
         {
             this.authService = authService;
+            this.validator = validator;
+            this.mapper = mapper;
+            this.validator2 = validator2;
         }
 
         [HttpGet]
@@ -27,6 +35,16 @@ namespace TravelMapTurkey.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterViewModel userRegisterViewModel)
         {
+            var userMap = mapper.Map<AppUser>(userRegisterViewModel);
+
+            var validationResult = await validator.ValidateAsync(userMap);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(this.ModelState);
+                return View();
+            }
+
             string result = await authService.RegisterUserAsync(userRegisterViewModel);
             if (result == "ok")
             {
@@ -49,7 +67,13 @@ namespace TravelMapTurkey.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
         {
-            
+            var validationResult = await validator2.ValidateAsync(userLoginViewModel);
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(this.ModelState);
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
                 string results = await authService.LoginUserAsync(userLoginViewModel);
